@@ -1,0 +1,17 @@
+<div class="todo-list-container">
+  <h2>Todo List For:</h2>
+  <input [(ngModel)]="listName" placeholder="Name/description of list" class="list-name">
+
+  <ul class="todo-list">
+    <li *ngFor="let todo of todoService.getTodos()" [ngClass]="{'completed': todo.completed}">
+      <input [(ngModel)]="todo.title" (blur)="editTodoTitle(todo.id, todo.title)">
+      <button (click)="moveTodoUp(todo.id)">⬆️</button>
+      <button (click)="moveTodoDown(todo.id)">⬇️</button>
+      <button (click)="confirmDelete(todo.id)">Delete</button>
+    </li>
+  </ul>
+
+  <input [(ngModel)]="newTodoTitle" placeholder="New todo" class="new-todo-input">
+  <button (click)="addTodo()">Add</button>
+  <button [disabled]="!anyCompleted()" (click)="markAllAsDone()">All Done</button>
+</div>
